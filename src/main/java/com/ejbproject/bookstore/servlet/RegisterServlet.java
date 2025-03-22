@@ -13,7 +13,7 @@ import java.io.IOException;
 @WebServlet("/register")
 public class RegisterServlet extends HttpServlet {
     @EJB
-    private UserService userService = new UserService();
+    private UserService userService;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("/views/register.jsp").forward(request, response);
@@ -22,8 +22,9 @@ public class RegisterServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+        int role = 0;
 
-        if (userService.registerUser(email, password)) {
+        if (userService.registerUser(email, password, role)) {
             response.sendRedirect("login?message=success");
         } else {
             response.sendRedirect("register?error=failed");

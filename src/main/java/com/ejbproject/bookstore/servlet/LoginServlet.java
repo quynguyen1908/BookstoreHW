@@ -15,7 +15,7 @@ import java.io.IOException;
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
     @EJB
-    private UserService userService = new UserService();
+    private UserService userService;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("/views/login.jsp").forward(request, response);
@@ -29,7 +29,11 @@ public class LoginServlet extends HttpServlet {
         if (user != null) {
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
-            response.sendRedirect("dashboard");
+            if (user.getRole() == 0) {
+                response.sendRedirect("products");
+            } else if (user.getRole() == 1) {
+                response.sendRedirect("admin");
+            }
         } else {
             response.sendRedirect("login?error=invalid");
         }

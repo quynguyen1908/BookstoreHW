@@ -16,11 +16,15 @@ public class User implements Serializable {
     @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
+    private int role;
+
     public User() {}
 
-    public User(String email, String password) {
+    public User(String email, String password, int role) {
         this.email = email;
         this.password = password;
+        this.role = role;
     }
 
     public int getId() {
@@ -29,6 +33,14 @@ public class User implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
     }
 
     public String getPassword() {

@@ -10,9 +10,9 @@ public class UserService {
     @PersistenceContext(unitName = "BookStorePU")
     private EntityManager em;
 
-    public boolean registerUser(String email, String password) {
+    public boolean registerUser(String email, String password, int role) {
         try {
-            User user = new User(email, password);
+            User user = new User(email, password, role);
             em.persist(user);
             return true;
         } catch (Exception e) {
